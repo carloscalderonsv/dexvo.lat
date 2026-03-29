@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEXVO — Technology with Precision & Speed</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  @font-face{font-family:'GM';src:url('https://cdn.jsdelivr.net/npm/geist@1.2.0/dist/fonts/geist-mono/GeistMono-Regular.woff2') format('woff2');font-weight:400}
+  @font-face{font-family:'GM';src:url('https://cdn.jsdelivr.net/npm/geist@1.2.0/dist/fonts/geist-mono/GeistMono-Medium.woff2') format('woff2');font-weight:500}
+
+  :root{
+    --bg:#050507;--s1:#0a0a0f;--s2:#111118;--s3:#161620;
+    --brd:rgba(255,255,255,0.06);--brd2:rgba(255,255,255,0.1);
+    --t:#e8e8ee;--t2:#c0c0cc;--tm:#6a6a80;--td:#3a3a50;
+    --cyan:#00f0ff;--green:#00ff88;--r:16px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+
+  body{
+    background:var(--bg);color:var(--t);
+    font-family:'Outfit',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  body::after{
+    content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0.02;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a{color:inherit;text-decoration:none}
+  .w{max-width:1100px;margin:0 auto;padding:0 32px}
+
+  /* ===== NAV ===== */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(5,5,7,0.85);backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--brd);
+  }
+  .nav-inner{
+    max-width:1100px;margin:0 auto;padding:0 32px;
+    height:64px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem;letter-spacing:-0.5px}
+  .nav-links{display:flex;align-items:center;gap:6px}
+  .nav-links a{
+    font-size:0.85rem;color:var(--tm);padding:8px 16px;border-radius:8px;
+    transition:all .2s;font-weight:400;
+  }
+  .nav-links a:hover{color:var(--t);background:rgba(255,255,255,0.04)}
+  .nav-cta{
+    background:var(--t);color:var(--bg);
+    padding:8px 20px;border-radius:8px;border:none;
+    font-size:0.85rem;font-weight:600;cursor:pointer;
+    font-family:inherit;transition:all .2s;
+  }
+  .nav-cta:hover{opacity:0.9;transform:translateY(-1px)}
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:160px 0 100px;
+    position:relative;
+    overflow:hidden;
+  }
+
+  .hero-glow{
+    position:absolute;top:-200px;left:50%;transform:translateX(-50%);
+    width:800px;height:500px;
+    background:radial-gradient(ellipse,rgba(0,240,255,0.08) 0%,rgba(0,255,136,0.04) 40%,transparent 70%);
+    pointer-events:none;
+  }
+
+  .hero-content{position:relative;z-index:1}
+
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--s2);border:1px solid var(--brd2);
+    padding:6px 6px 6px 8px;border-radius:100px;
+    margin-bottom:32px;
+    animation:fu .6s .1s ease both;
+  }
+
+  .hero-eyebrow span{
+    font-size:0.8rem;color:var(--t2);padding-right:8px;
+  }
+
+  .hero-eyebrow .pill{
+    background:linear-gradient(135deg,var(--cyan),var(--green));
+    color:var(--bg);font-family:'GM',monospace;
+    font-size:0.65rem;font-weight:600;letter-spacing:0.5px;
+    padding:4px 10px;border-radius:100px;
+  }
+
+  .hero h1{
+    font-size:clamp(2.8rem,6.5vw,4.8rem);
+    font-weight:800;letter-spacing:-3px;line-height:1.05;
+    margin-bottom:24px;
+    max-width:750px;
+    animation:fu .6s .2s ease both;
+  }
+
+  .hero h1 .grad{
+    background:linear-gradient(135deg,var(--cyan),var(--green));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+
+  .hero-sub{
+    font-size:1.15rem;color:var(--tm);font-weight:300;
+    line-height:1.7;max-width:520px;margin-bottom:36px;
+    animation:fu .6s .3s ease both;
+  }
+
+  .hero-actions{
+    display:flex;gap:12px;align-items:center;
+    animation:fu .6s .4s ease both;
+  }
+
+  .btn-main{
+    background:linear-gradient(135deg,var(--cyan),var(--green));
+    color:var(--bg);padding:14px 28px;border:none;border-radius:12px;
+    font-size:0.95rem;font-weight:600;cursor:pointer;
+    font-family:inherit;transition:all .3s;
+  }
+  .btn-main:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,240,255,0.15)}
+
+  .btn-ghost{
+    color:var(--t2);padding:14px 24px;border:1px solid var(--brd2);
+    border-radius:12px;font-size:0.95rem;font-weight:400;
+    cursor:pointer;font-family:inherit;transition:all .2s;background:transparent;
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.15)}
+
+  /* ===== LOGOS BAR ===== */
+  .trust-bar{
+    padding:48px 0;
+    border-top:1px solid var(--brd);border-bottom:1px solid var(--brd);
+  }
+  .trust-label{
+    font-family:'GM',monospace;font-size:0.65rem;
+    color:var(--td);letter-spacing:2px;text-transform:uppercase;
+    text-align:center;margin-bottom:24px;
+  }
+  .trust-items{
+    display:flex;justify-content:center;gap:40px;align-items:center;flex-wrap:wrap;
+  }
+  .trust-items span{
+    font-family:'GM',monospace;font-size:0.8rem;color:var(--td);
+    letter-spacing:1px;
+  }
+
+  /* ===== PRODUCTS ===== */
+  .products{padding:100px 0}
+  .sec-header{margin-bottom:56px}
+  .sec-tag{
+    font-family:'GM',monospace;font-size:0.7rem;
+    color:var(--cyan);letter-spacing:2px;text-transform:uppercase;
+    margin-bottom:12px;
+  }
+  .sec-title{
+    font-size:clamp(1.8rem,3.5vw,2.6rem);
+    font-weight:700;letter-spacing:-1.5px;margin-bottom:10px;
+  }
+  .sec-desc{font-size:1rem;color:var(--tm);font-weight:300;line-height:1.6;max-width:500px}
+
+  .product-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+  .p-card{
+    background:var(--s1);border:1px solid var(--brd);
+    border-radius:var(--r);padding:0;overflow:hidden;
+    transition:all .35s ease;
+    display:flex;flex-direction:column;
+  }
+  .p-card:hover{border-color:var(--brd2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+
+  .p-card-top{
+    padding:28px 24px 0;flex:1;
+  }
+
+  .p-card-icon{
+    width:44px;height:44px;border-radius:12px;
+    display:grid;place-items:center;font-size:1.2rem;
+    margin-bottom:16px;
+  }
+
+  .p-card:nth-child(1) .p-card-icon{background:rgba(0,240,255,0.08)}
+  .p-card:nth-child(2) .p-card-icon{background:rgba(123,92,255,0.08)}
+  .p-card:nth-child(3) .p-card-icon{background:rgba(255,100,130,0.08)}
+
+  .p-card h3{font-size:1.2rem;font-weight:700;margin-bottom:4px;letter-spacing:-0.5px}
+  .p-card .p-cat{font-family:'GM',monospace;font-size:0.65rem;color:var(--cyan);margin-bottom:12px;display:block}
+  .p-card p{font-size:0.88rem;color:var(--tm);font-weight:300;line-height:1.6}
+
+  .p-card-bottom{
+    padding:16px 24px;margin-top:20px;
+    border-top:1px solid var(--brd);
+    display:flex;justify-content:space-between;align-items:center;
+  }
+
+  .p-status{
+    font-family:'GM',monospace;font-size:0.65rem;
+    color:var(--green);
+    display:flex;align-items:center;gap:6px;
+  }
+
+  .p-status::before{
+    content:'';width:5px;height:5px;border-radius:50%;
+    background:var(--green);
+  }
+
+  .p-arrow{
+    width:28px;height:28px;border-radius:8px;
+    background:rgba(255,255,255,0.04);border:1px solid var(--brd);
+    display:grid;place-items:center;
+    transition:all .2s;cursor:pointer;
+  }
+
+  .p-card:hover .p-arrow{background:rgba(0,240,255,0.08);border-color:rgba(0,240,255,0.2)}
+
+  /* ===== ABOUT ===== */
+  .about{padding:100px 0;border-top:1px solid var(--brd)}
+
+  .about-layout{
+    display:grid;grid-template-columns:1.2fr 1fr;
+    gap:80px;align-items:start;
+  }
+
+  .about-left h2{
+    font-size:clamp(1.6rem,3vw,2.2rem);
+    font-weight:700;letter-spacing:-1px;
+    margin-bottom:20px;line-height:1.3;
+  }
+
+  .about-left h2 .grad{
+    background:linear-gradient(135deg,var(--cyan),var(--green));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+
+  .about-left p{
+    font-size:0.95rem;color:var(--tm);
+    font-weight:300;line-height:1.8;margin-bottom:14px;
+  }
+
+  .about-facts{
+    display:grid;grid-template-columns:1fr 1fr;gap:12px;
+    margin-top:32px;
+  }
+
+  .fact{
+    background:var(--s1);border:1px solid var(--brd);
+    border-radius:12px;padding:20px;
+  }
+
+  .fact-val{
+    font-size:1.6rem;font-weight:800;letter-spacing:-1px;
+    margin-bottom:4px;
+  }
+
+  .fact-val.grad{
+    background:linear-gradient(135deg,var(--cyan),var(--green));
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  }
+
+  .fact-lbl{font-size:0.78rem;color:var(--tm);font-weight:300}
+
+  .about-right{
+    background:var(--s1);border:1px solid var(--brd);
+    border-radius:var(--r);overflow:hidden;
+  }
+
+  .about-right-header{
+    padding:16px 20px;border-bottom:1px solid var(--brd);
+    display:flex;align-items:center;gap:8px;
+  }
+
+  .about-right-header .dot{width:10px;height:10px;border-radius:50%;border:1px solid var(--brd)}
+  .about-right-header .dot:first-child{background:rgba(255,95,87,0.6)}
+  .about-right-header .dot:nth-child(2){background:rgba(255,189,46,0.6)}
+  .about-right-header .dot:nth-child(3){background:rgba(39,201,63,0.6)}
+  .about-right-header span{
+    font-family:'GM',monospace;font-size:0.65rem;color:var(--td);
+    margin-left:8px;
+  }
+
+  .about-code{
+    padding:24px;font-family:'GM',monospace;font-size:0.78rem;
+    color:var(--tm);line-height:2;
+  }
+  .cc{color:var(--cyan)}.cg{color:var(--green)}.cp{color:#7b5cff}.cw{color:var(--t)}
+  .cm{color:var(--td);font-style:italic}
+
+  /* ===== STACK ===== */
+  .stack{padding:80px 0;border-top:1px solid var(--brd)}
+
+  .stack-grid{
+    display:flex;flex-wrap:wrap;gap:8px;
+    margin-top:32px;
+  }
+
+  .stack-tag{
+    background:var(--s1);border:1px solid var(--brd);
+    border-radius:10px;padding:12px 20px;
+    font-family:'GM',monospace;font-size:0.78rem;color:var(--tm);
+    transition:all .25s;cursor:default;
+  }
+  .stack-tag:hover{border-color:rgba(0,240,255,0.25);color:var(--cyan);background:rgba(0,240,255,0.03)}
+
+  /* ===== CTA ===== */
+  .cta-section{
+    padding:120px 0;
+    text-align:center;
+  }
+
+  .cta-box{
+    background:linear-gradient(135deg,rgba(0,240,255,0.04),rgba(0,255,136,0.02));
+    border:1px solid rgba(0,240,255,0.1);
+    border-radius:24px;
+    padding:80px 40px;
+    position:relative;overflow:hidden;
+  }
+
+  .cta-box::before{
+    content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);
+    width:600px;height:300px;
+    background:radial-gradient(ellipse,rgba(0,240,255,0.06),transparent 70%);
+    pointer-events:none;
+  }
+
+  .cta-box h2{
+    font-size:clamp(2rem,4vw,3rem);
+    font-weight:800;letter-spacing:-2px;
+    margin-bottom:16px;position:relative;
+  }
+
+  .cta-box p{
+    font-size:1rem;color:var(--tm);font-weight:300;
+    margin-bottom:32px;position:relative;
+  }
+
+  .cta-box .btn-main{position:relative}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--brd);padding:48px 0 32px}
+
+  .foot-top{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;
+    margin-bottom:40px;
+  }
+
+  .foot-brand{
+    display:flex;flex-direction:column;gap:12px;
+  }
+
+  .foot-brand .foot-logo{
+    display:flex;align-items:center;gap:8px;
+    font-weight:700;font-size:1rem;
+  }
+
+  .foot-brand p{font-size:0.82rem;color:var(--tm);font-weight:300;line-height:1.6}
+
+  .foot-col h4{
+    font-family:'GM',monospace;font-size:0.65rem;
+    color:var(--td);letter-spacing:2px;text-transform:uppercase;
+    margin-bottom:16px;
+  }
+
+  .foot-col a{
+    display:block;font-size:0.85rem;color:var(--tm);
+    padding:4px 0;transition:color .2s;
+  }
+  .foot-col a:hover{color:var(--t)}
+
+  .foot-bottom{
+    border-top:1px solid var(--brd);padding-top:24px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+
+  .foot-copy{font-family:'GM',monospace;font-size:0.65rem;color:var(--td);letter-spacing:1px}
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fu{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  .reveal{opacity:0;transform:translateY(20px);transition:all .5s ease}
+  .reveal.v{opacity:1;transform:translateY(0)}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:860px){
+    .w{padding:0 20px}
+    .nav-inner{padding:0 20px}
+    .nav-links{display:none}
+    .product-cards{grid-template-columns:1fr}
+    .about-layout{grid-template-columns:1fr;gap:32px}
+    .about-facts{grid-template-columns:1fr 1fr}
+    .foot-top{grid-template-columns:1fr;gap:24px}
+    .foot-bottom{flex-direction:column;gap:12px;text-align:center}
+    .hero{padding:130px 0 80px}
+    .hero-actions{flex-direction:column;width:100%}
+    .hero-actions button{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <svg width="22" height="22" viewBox="0 0 64 64" fill="none">
+        <rect width="64" height="64" rx="14" fill="url(#gn)"/>
+        <path d="M24 14H35C44.389 14 52 21.611 52 31V33C52 42.389 44.389 50 35 50H24V14Z" fill="#060608"/>
+        <rect x="12" y="22" width="14" height="3" rx="1.5" fill="#060608"/>
+        <rect x="12" y="30.5" width="10" height="3" rx="1.5" fill="#060608"/>
+        <rect x="12" y="39" width="14" height="3" rx="1.5" fill="#060608"/>
+        <circle cx="37" cy="32" r="5" fill="#060608" opacity="0.4"/>
+        <defs><linearGradient id="gn" x1="0" y1="0" x2="64" y2="64"><stop stop-color="#00f0ff"/><stop offset="1" stop-color="#00ff88"/></linearGradient></defs>
+      </svg>
+      DEXVO
+    </div>
+    <div class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="nav-cta">Get in touch</button>
+  </div>
+</nav>
+
+<div class="w">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span>Software studio from El Salvador</span>
+        <div class="pill">LATAM + US</div>
+      </div>
+      <h1>We build software<br>with <span class="grad">precision & speed</span></h1>
+      <p class="hero-sub">DEXVO is a multi-product software company. We design, develop, and ship premium apps for Latin America and the United States — subscription-based, mobile-first, built from scratch.</p>
+      <div class="hero-actions">
+        <button class="btn-main">See our products ↓</button>
+        <button class="btn-ghost">Learn about DEXVO</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-label">Built with</div>
+    <div class="trust-items">
+      <span>React Native</span>
+      <span>Expo</span>
+      <span>Supabase</span>
+      <span>RevenueCat</span>
+      <span>TypeScript</span>
+      <span>EAS</span>
+    </div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <section class="products reveal" id="products">
+    <div class="sec-header">
+      <div class="sec-tag">What we're building</div>
+      <div class="sec-title">Three products. One mission.</div>
+      <p class="sec-desc">Each product solves a real problem for real people. Crafted from zero, designed mobile-first, monetized through subscriptions.</p>
+    </div>
+
+    <div class="product-cards">
+
+      <div class="p-card">
+        <div class="p-card-top">
+          <div class="p-card-icon">💰</div>
+          <h3>SplitSmart</h3>
+          <span class="p-cat">Fintech · Expense Splitting</span>
+          <p>Split expenses with friends without friction. Smart settlements, group tracking, and real-time balances designed for how people actually share costs in LATAM.</p>
+        </div>
+        <div class="p-card-bottom">
+          <div class="p-status">Coming soon</div>
+          <div class="p-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M10 6L7 3M10 6L7 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-top">
+          <div class="p-card-icon">🔐</div>
+          <h3>VaultX</h3>
+          <span class="p-cat">Security · Digital Vault</span>
+          <p>Encrypted vault for passwords, documents, and sensitive data. Privacy-first architecture with zero-knowledge design. Your data stays yours.</p>
+        </div>
+        <div class="p-card-bottom">
+          <div class="p-status">In development</div>
+          <div class="p-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M10 6L7 3M10 6L7 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        </div>
+      </div>
+
+      <div class="p-card">
+        <div class="p-card-top">
+          <div class="p-card-icon">💜</div>
+          <h3>PROWLR</h3>
+          <span class="p-cat">Social · Premium Dating</span>
+          <p>A premium dating experience for LATAM and US. Intentional connections over endless swiping. Built with discretion and quality.</p>
+        </div>
+        <div class="p-card-bottom">
+          <div class="p-status">In development</div>
+          <div class="p-arrow"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6H10M10 6L7 3M10 6L7 9" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about reveal" id="about">
+    <div class="about-layout">
+      <div class="about-left">
+        <div class="sec-tag">About DEXVO</div>
+        <h2>Software built with <span class="grad">dexterity</span> — precision and skill in every line of code.</h2>
+        <p>DEXVO comes from the Latin word <strong style="color:var(--t);font-weight:500">dexter</strong> — meaning skillful, precise, capable. It's the root of "dexterity" in English and "destreza" in Spanish.</p>
+        <p>We're a software company based in El Salvador that develops multiple subscription-based products for Latin America and the United States. Every product is designed mobile-first, built with modern stacks, and shipped with speed.</p>
+
+        <div class="about-facts">
+          <div class="fact">
+            <div class="fact-val grad">3</div>
+            <div class="fact-lbl">Products in development</div>
+          </div>
+          <div class="fact">
+            <div class="fact-val grad">2</div>
+            <div class="fact-lbl">Target markets</div>
+          </div>
+          <div class="fact">
+            <div class="fact-val">2026</div>
+            <div class="fact-lbl">Founded</div>
+          </div>
+          <div class="fact">
+            <div class="fact-val">.lat</div>
+            <div class="fact-lbl">Domain — Latin America</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-right">
+        <div class="about-right-header">
+          <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+          <span>dexvo.config.ts</span>
+        </div>
+        <div class="about-code">
+          <span class="cm">// who we are</span><br>
+          <span class="cp">export const</span> <span class="cw">company</span> = {<br>
+          &nbsp;&nbsp;<span class="cc">name</span>: <span class="cg">"DEXVO"</span>,<br>
+          &nbsp;&nbsp;<span class="cc">origin</span>: <span class="cg">"Latin: dexter"</span>,<br>
+          &nbsp;&nbsp;<span class="cc">meaning</span>: <span class="cg">"precision & speed"</span>,<br>
+          &nbsp;&nbsp;<span class="cc">base</span>: <span class="cg">"El Salvador 🇸🇻"</span>,<br>
+          &nbsp;&nbsp;<span class="cc">markets</span>: [<span class="cg">"LATAM"</span>, <span class="cg">"US"</span>],<br>
+          &nbsp;&nbsp;<span class="cc">products</span>: [<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cg">"SplitSmart"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cg">"VaultX"</span>,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="cg">"PROWLR"</span>,<br>
+          &nbsp;&nbsp;],<br>
+          &nbsp;&nbsp;<span class="cc">domain</span>: <span class="cg">"dexvo.lat"</span>,<br>
+          &nbsp;&nbsp;<span class="cc">status</span>: <span class="cg">"building"</span> <span class="cm">// 🚀</span><br>
+          } <span class="cp">as const</span>;
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section class="stack reveal" id="stack">
+    <div class="sec-tag">Tech stack</div>
+    <div class="sec-title">What powers every product</div>
+    <div class="stack-grid">
+      <div class="stack-tag">React Native</div>
+      <div class="stack-tag">Expo SDK 52</div>
+      <div class="stack-tag">TypeScript</div>
+      <div class="stack-tag">Supabase</div>
+      <div class="stack-tag">PostgreSQL</div>
+      <div class="stack-tag">RevenueCat</div>
+      <div class="stack-tag">EAS Build</div>
+      <div class="stack-tag">GitHub Actions</div>
+      <div class="stack-tag">Vercel</div>
+      <div class="stack-tag">Tailwind CSS</div>
+      <div class="stack-tag">Zustand</div>
+      <div class="stack-tag">React Query</div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section reveal" id="contact">
+    <div class="cta-box">
+      <h2>Ready to build something<br>with precision?</h2>
+      <p>Whether you want to collaborate, invest, or just say hi — we'd love to hear from you.</p>
+      <button class="btn-main">hello@dexvo.lat →</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="foot-logo">
+          <svg width="18" height="18" viewBox="0 0 64 64" fill="none">
+            <rect width="64" height="64" rx="14" fill="url(#gf)"/>
+            <path d="M24 14H35C44.389 14 52 21.611 52 31V33C52 42.389 44.389 50 35 50H24V14Z" fill="#060608"/>
+            <rect x="12" y="22" width="14" height="3" rx="1.5" fill="#060608"/>
+            <rect x="12" y="30.5" width="10" height="3" rx="1.5" fill="#060608"/>
+            <rect x="12" y="39" width="14" height="3" rx="1.5" fill="#060608"/>
+            <circle cx="37" cy="32" r="5" fill="#060608" opacity="0.4"/>
+            <defs><linearGradient id="gf" x1="0" y1="0" x2="64" y2="64"><stop stop-color="#00f0ff"/><stop offset="1" stop-color="#00ff88"/></linearGradient></defs>
+          </svg>
+          DEXVO
+        </div>
+        <p>Technology with precision & speed. Based in El Salvador, building for LATAM and the US.</p>
+      </div>
+
+      <div class="foot-col">
+        <h4>Products</h4>
+        <a href="#">SplitSmart</a>
+        <a href="#">VaultX</a>
+        <a href="#">PROWLR</a>
+      </div>
+
+      <div class="foot-col">
+        <h4>Connect</h4>
+        <a href="#">Instagram</a>
+        <a href="#">X / Twitter</a>
+        <a href="#">GitHub</a>
+        <a href="#">TikTok</a>
+        <a href="#">hello@dexvo.lat</a>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <div class="foot-copy">© 2026 DEXVO. ALL RIGHTS RESERVED.</div>
+      <div class="foot-copy">SAN SALVADOR, EL SALVADOR 🇸🇻</div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('v') });
+}, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
